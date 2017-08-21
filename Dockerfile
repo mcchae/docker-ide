@@ -55,8 +55,7 @@ WORKDIR /usr/local
 ENV PYCHARM_VER pycharm-community-2017.2
 RUN curl -SL https://download.jetbrains.com/python/$PYCHARM_VER.tar.gz | \
 		tar -f - -xz --exclude "pycharm*/jre64" -f - \
-    && ln -s /usr/local/$PYCHARM_VER /usr/local/pycharm \
-    && if [ ! -d ${HOME}/.autoenv ];then git clone git://github.com/kennethreitz/autoenv.git ${HOME}/.autoenv; fi
+    && ln -s /usr/local/$PYCHARM_VER /usr/local/pycharm
 
 WORKDIR /
 
