@@ -25,7 +25,7 @@ docker container run -it \
 	-p $HP_RDP:3389 \
 	-p $HP_NOVNC:6081 \
 	-v /dhv/xfce/toor:/home/toor \
-	mcchae/xfce-conda
+	mcchae/ide
 ```
 
 > `-it` 대신 `-d` 옵션을 이용하면 백그라운드 서비스로 실행됩니다.
@@ -38,7 +38,7 @@ docker container run -it \
 version: '2'
 services:
   mydt:
-    image: "mcchae/xfce-conda"
+    image: "mcchae/ide"
     hostname: "mydt"
     environment:
       VNC_GEOMETRY: "1440x900"

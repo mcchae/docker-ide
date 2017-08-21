@@ -2,6 +2,31 @@ FROM mcchae/xfce
 MAINTAINER MoonChang Chae mcchae@gmail.com
 LABEL Description="alpine desktop env with ide (over xfce with novnc, xrdp and openssh server)"
 
+
+################################################################################
+# install python3
+################################################################################
+## if this is called "PIP_VERSION", pip explodes with "ValueError: invalid truth value '<VERSION>'"
+ENV PYTHON_PIP_VERSION 9.0.1
+RUN apk add --no-cache python3
+RUN set -ex; \
+    apk add --no-cache --virtual .fetch-deps libressl; \
+    wget -O get-pip.py 'https://bootstrap.pypa.io/get-pip.py'; \
+    apk del .fetch-deps; \
+    python3 get-pip.py \
+        --disable-pip-version-check \
+        --no-cache-dir \
+        "pip==$PYTHON_PIP_VERSION" \
+    ; \
+    pip --version; \
+    find /usr/local -depth \
+        \( \
+            \( -type d -a \( -name test -o -name tests \) \) \
+            -o \
+            \( -type f -a \( -name '*.pyc' -o -name '*.pyo' \) \) \
+        \) -exec rm -rf '{}' +; \
+    rm -f get-pip.py
+
 ################################################################################
 # install openjdk8
 ################################################################################
@@ -26,15 +51,12 @@ RUN set -x \
 ################################################################################
 # pycharm
 ################################################################################
-WORKDIR /tmp
+WORKDIR /usr/local
 ENV PYCHARM_VER pycharm-community-2017.2
-RUN wget https://download.jetbrains.com/python/$PYCHARM_VER.tar.gz \
-    && tar xfz $PYCHARM_VER.tar.gz --exclude "jre64" \
-    && rm -f $PYCHARM_VER.tar.gz \
-    && mv $PYCHARM_VER /usr/local \
-    && rm -f /usr/local/pycharm \
-    && rm -rf /usr/local/$PYCHARM_VER/jre64 \
-    && ln -s /usr/local/$PYCHARM_VER /usr/local/pycharm
+RUN curl -SL https://download.jetbrains.com/python/$PYCHARM_VER.tar.gz | \
+		tar -f - -xz --exclude "pycharm*/jre64" -f - \
+    && ln -s /usr/local/$PYCHARM_VER /usr/local/pycharm \
+    && if [ ! -d ${HOME}/.autoenv ];then git clone git://github.com/kennethreitz/autoenv.git ${HOME}/.autoenv; fi
 
 WORKDIR /
 
