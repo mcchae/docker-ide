@@ -40,8 +40,8 @@ RUN { \
 ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk
 ENV PATH $PATH:/usr/lib/jvm/java-1.8-openjdk/jre/bin:/usr/lib/jvm/java-1.8-openjdk/bin
 
-ENV JAVA_VERSION 8u131
-ENV JAVA_ALPINE_VERSION 8.131.11-r2
+ENV JAVA_VERSION 8u151
+ENV JAVA_ALPINE_VERSION 8.151.12-r0
 
 RUN set -x \
     && apk add --no-cache \
@@ -52,9 +52,9 @@ RUN set -x \
 # pycharm
 ################################################################################
 WORKDIR /usr/local
-ENV PYCHARM_VER pycharm-community-2017.2
+ENV PYCHARM_VER pycharm-community-2017.3.3
 RUN curl -SL https://download.jetbrains.com/python/$PYCHARM_VER.tar.gz | \
-		tar -f - -xz --exclude "pycharm*/jre64" -f - \
+		tar -f - -xz --exclude "*/jre64" -f - \
     && ln -s /usr/local/$PYCHARM_VER /usr/local/pycharm
 
 WORKDIR /

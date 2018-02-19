@@ -5,7 +5,7 @@
 ## 작업 내용
 
 * openjdk8 : alpine용 openjdk 버전 8을 설치하였습니다.
-* pyCharm : Community Edition 2017.2 버전의 pyCharm IDE를 설치하였습니다.
+* pyCharm : Community Edition 2017.3.3 버전의 pyCharm IDE를 설치하였습니다.
 
 
 ## 사용법
