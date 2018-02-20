@@ -55,7 +55,8 @@ WORKDIR /usr/local
 ENV PYCHARM_VER pycharm-professional-2017.3.3
 RUN curl -SL https://download.jetbrains.com/python/$PYCHARM_VER.tar.gz | \
 		tar -f - -xz --exclude "*/jre64" -f - \
-    && ln -s /usr/local/$PYCHARM_VER /usr/local/pycharm
+	&& PYCHARM_DIR=$(find /usr/local -type d -name "pycharm*" -maxdepth 1) \
+    && ln -s $PYCHARM_DIR /usr/local/pycharm
 
 WORKDIR /
 
