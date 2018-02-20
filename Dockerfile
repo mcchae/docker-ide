@@ -52,7 +52,7 @@ RUN set -x \
 # pycharm
 ################################################################################
 WORKDIR /usr/local
-ENV PYCHARM_VER pycharm-community-2017.3.3
+ENV PYCHARM_VER pycharm-professional-2017.3.3
 RUN curl -SL https://download.jetbrains.com/python/$PYCHARM_VER.tar.gz | \
 		tar -f - -xz --exclude "*/jre64" -f - \
     && ln -s /usr/local/$PYCHARM_VER /usr/local/pycharm
