@@ -7,7 +7,7 @@ LABEL Description="alpine desktop env with ide (over xfce with novnc, xrdp and o
 # install python3
 ################################################################################
 ## if this is called "PIP_VERSION", pip explodes with "ValueError: invalid truth value '<VERSION>'"
-ENV PYTHON_PIP_VERSION 9.0.1
+ENV PYTHON_PIP_VERSION 19.1.1
 RUN apk add --no-cache python3
 RUN set -ex; \
     apk add --no-cache --virtual .fetch-deps libressl; \
@@ -40,8 +40,10 @@ RUN { \
 ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk
 ENV PATH $PATH:/usr/lib/jvm/java-1.8-openjdk/jre/bin:/usr/lib/jvm/java-1.8-openjdk/bin
 
-ENV JAVA_VERSION 8u151
-ENV JAVA_ALPINE_VERSION 8.181.13-r0
+#ENV JAVA_VERSION 8u151
+#ENV JAVA_ALPINE_VERSION 8.181.13-r0
+ENV JAVA_VERSION 8u212
+ENV JAVA_ALPINE_VERSION 8.212.04-r0
 
 RUN set -x \
     && apk add --no-cache \
@@ -52,7 +54,7 @@ RUN set -x \
 # pycharm
 ################################################################################
 WORKDIR /usr/local
-ENV PYCHARM_VER pycharm-professional-2017.3.3
+ENV PYCHARM_VER pycharm-professional-2019.1.2
 RUN curl -SL https://download.jetbrains.com/python/$PYCHARM_VER.tar.gz | \
 		tar -f - -xz --exclude "*/jre64" -f - \
 	&& PYCHARM_DIR=$(find /usr/local -type d -name "pycharm*" -maxdepth 1) \
